@@ -27,6 +27,12 @@
                 {{-- Sia per Show sia per Edit posso decidere se passare l'intera entità o soltanto l'id --}}
                 <a class="btn btn-primary" href="{{route('pizzas.show', $pizza)}}">Mostra</a>
                 <a class="btn btn-success" href="{{route('pizzas.edit', $pizza->id)}}">Cambia</a>
+                <form class="d-inline" action="{{route('pizzas.destroy', $pizza)}}" method="POST"
+                onsubmit="return confirm('Vuoi eliminare {{$pizza->nome}}?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                </form>
               </td>
             </tr>
             @endforeach

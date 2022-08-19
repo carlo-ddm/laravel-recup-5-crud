@@ -6,7 +6,7 @@
     {{-- Nel form inserisco "action=" " e method="POST" --}}
     <form action="{{route('pizzas.update', $pizza)}}" method="post">
         @csrf
-        @method('put')
+        @method('PUT')
         <div class="mb-3">
           <label for="nome" class="form-label">Pizza</label>
           <input type="text" class="form-control" id="name" name="nome" value="{{$pizza->nome}}">

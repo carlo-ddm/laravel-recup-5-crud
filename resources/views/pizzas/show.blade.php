@@ -23,7 +23,9 @@
               <td>
                 {{-- <a class="btn btn-primary" href="{{route('pizzas.show', $pizza)}}">Mostra</a> --}}
                 <a class="btn btn-success" href="{{route('pizzas.edit', $pizza)}}">Cambia</a>
-              </td>
+            </td>
+
+
             </tr>
         </tbody>
       </table>

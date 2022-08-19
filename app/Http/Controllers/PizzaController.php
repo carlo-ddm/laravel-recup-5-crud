@@ -137,9 +137,11 @@ class PizzaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pizza $pizza)
     {
-        //
+        // $pizza = Pizza::find($id);
+        $pizza->delete();
+        return redirect()->route('pizzas.index');
     }
 
     // Funzione di centralizzazione per
