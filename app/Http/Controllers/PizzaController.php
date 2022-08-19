@@ -86,7 +86,12 @@ class PizzaController extends Controller
      */
     public function edit($id)
     {
-        return view('pizzas.edit');
+        $pizza = Pizza::find($id);
+        if($pizza){
+            return view('pizzas.edit', compact('pizza'));
+        } else {
+            abort(404, 'Errore 404 | nch! BEEEEELLA');
+        }
     }
 
     /**
@@ -96,9 +101,16 @@ class PizzaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pizza $pizza)
     {
-        //
+        // $pizza = Pizza::find($id);
+        $data = $request->all();
+        // dd($data);
+        // RICREO LO SLUG NELLA POSSIBILITà CHE ABBIA CAMBIATO IL NOME
+        $data['slug'] = Str::slug($data['nome'], '-');
+        $pizza->update($data);
+
+        return redirect()->route('pizzas.show', $pizza);
     }
 
     /**
