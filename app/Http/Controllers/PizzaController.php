@@ -53,7 +53,17 @@ class PizzaController extends Controller
         // $newPizza->slug = Str::slug($data['nome'], '-');
         // $newPizza->prezzo = $data['prezzo'];
         // $newPizza->vegetariana = $data['vegetariana'];
-        $data['slug'] = Str::slug($data['nome'], '-');
+
+
+        if($newPizza->nome != $data['nome']){
+            $data['slug'] = $this->createSlug($data['nome']);
+        } else {
+            $data['slug'] = $newPizza->slug;
+        }
+
+        // $data['slug'] = Str::slug($data['nome'], '-');
+
+
         $newPizza->fill($data);
 
         $newPizza->save();
@@ -106,8 +116,16 @@ class PizzaController extends Controller
         // $pizza = Pizza::find($id);
         $data = $request->all();
         // dd($data);
-        // RICREO LO SLUG NELLA POSSIBILITà CHE ABBIA CAMBIATO IL NOME
-        $data['slug'] = Str::slug($data['nome'], '-');
+
+
+        // $data['slug'] = Str::slug($data['nome'], '-');
+        // SLUG CENTRALIZZATO DA FUNZIONE
+        if($pizza->nome != $data['nome']){
+            $data['slug'] = $this->createSlug($data['nome']);
+        } else {
+            $data['slug'] = $pizza->slug;
+        }
+
         $pizza->update($data);
 
         return redirect()->route('pizzas.show', $pizza);
@@ -122,5 +140,19 @@ class PizzaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Funzione di centralizzazione per
+    // la creazione dello slug
+    private function createSlug($string){
+        $slug = Str::slug($string, '-');
+        // metoto first() prende il primo elemento di quella ricerca
+        // il primo array
+        $controll_slug = Pizza::where('slug', $slug)->first();
+        if($control_slug){
+            // $counter = 0; e sotto counter++
+            $slug = $controll_slug->slug . '-' . rand(1,100);
+        }
+        return $slug;
     }
 }
