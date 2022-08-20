@@ -44,7 +44,7 @@ class PizzaController extends Controller
      */
     public function store(Request $request)
     {
-        // eseguo validazione
+        // eseguo validazione richiamando funzione di validazione
         $this->req($request);
 
         // $request->validate([
@@ -130,6 +130,7 @@ class PizzaController extends Controller
      */
     public function update(Request $request, Pizza $pizza)
     {
+        // Richiamo la funzione di validazine
         $this->req($request);
 
         // $request->validate([
