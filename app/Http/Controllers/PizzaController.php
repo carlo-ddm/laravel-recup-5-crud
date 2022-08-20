@@ -44,6 +44,14 @@ class PizzaController extends Controller
      */
     public function store(Request $request)
     {
+        // eseguo validazione
+
+        $request->validate([
+            'nome' => 'required|min:3|max:20',
+            'prezzo' => 'required|numeric',
+        ]);
+
+
         // dd($request->all());
         $data = $request->all();
 
@@ -141,7 +149,7 @@ class PizzaController extends Controller
     {
         // $pizza = Pizza::find($id);
         $pizza->delete();
-        return redirect()->route('pizzas.index');
+        return redirect()->route('pizzas.index')->with('eliminazione', 'Eliminazione avvenuta corretamente');
     }
 
     // Funzione di centralizzazione per

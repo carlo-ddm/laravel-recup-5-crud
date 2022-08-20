@@ -3,6 +3,15 @@
 @section('content')
 {{-- @dump($pizzas) --}}
 <div class="container">
+
+    @if (session('eliminazione'))
+    <div class="alert alert-secondary" role="alert">
+        {{session('eliminazione')}}
+    </div>
+    @endif
+
+
+
     <table class="table m-5">
         <thead>
           <tr>
