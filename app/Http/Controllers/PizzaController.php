@@ -19,9 +19,9 @@ class PizzaController extends Controller
 
         foreach($pizzas as $pizza){
 
-            if($pizza->nome == 'Veg'){
-                $pizza->vegetariana = 1;
-            }
+            // if($pizza->nome == 'Veg'){
+            //     $pizza->vegetariana = 1;
+            // }
         }
         return view('pizzas.index', compact('pizzas'));
     }
@@ -45,11 +45,19 @@ class PizzaController extends Controller
     public function store(Request $request)
     {
         // eseguo validazione
+        $this->req($request);
 
-        $request->validate([
-            'nome' => 'required|min:3|max:20',
-            'prezzo' => 'required|numeric',
-        ]);
+        // $request->validate([
+        //     'nome' => 'required|min:3|max:20',
+        //     'prezzo' => 'required|numeric',
+        // ],
+        // [
+        //     'nome.required' => 'Campo obbligatorio',
+        //     'nome.min' => 'Minimo 3 caratteri',
+        //     'nome.max' => 'Massimo 20 caratteri',
+        //     'prezzo.required' => 'Campo obbligatorio',
+        //     'prezzo.numeric' => 'Non hai inserito un numero'
+        // ]);
 
 
         // dd($request->all());
@@ -105,6 +113,7 @@ class PizzaController extends Controller
     public function edit($id)
     {
         $pizza = Pizza::find($id);
+
         if($pizza){
             return view('pizzas.edit', compact('pizza'));
         } else {
@@ -121,6 +130,20 @@ class PizzaController extends Controller
      */
     public function update(Request $request, Pizza $pizza)
     {
+        $this->req($request);
+
+        // $request->validate([
+        //     'nome' => 'required|min:3|max:20',
+        //     'prezzo' => 'required|numeric',
+        // ],
+        // [
+        //     'nome.required' => 'Campo obbligatorio',
+        //     'nome.min' => 'Minimo 3 caratteri',
+        //     'nome.max' => 'Massimo 20 caratteri',
+        //     'prezzo.required' => 'Campo obbligatorio',
+        //     'prezzo.numeric' => 'Non hai inserito un numero'
+        // ]);
+
         // $pizza = Pizza::find($id);
         $data = $request->all();
         // dd($data);
@@ -135,6 +158,8 @@ class PizzaController extends Controller
         }
 
         $pizza->update($data);
+
+
 
         return redirect()->route('pizzas.show', $pizza);
     }
@@ -164,5 +189,20 @@ class PizzaController extends Controller
             $slug = $controll_slug->slug . '-' . rand(1,100);
         }
         return $slug;
+    }
+
+    private function req($arr){
+        $arr->validate([
+            'nome' => 'required|min:3|max:20',
+            'prezzo' => 'required|numeric',
+        ],
+        [
+            'nome.required' => 'Campo obbligatorio',
+            'nome.min' => 'Minimo 3 caratteri',
+            'nome.max' => 'Massimo 20 caratteri',
+            'prezzo.required' => 'Campo obbligatorio',
+            'prezzo.numeric' => 'Non hai inserito un numero'
+        ]);
+        return $arr;
     }
 }
