@@ -20,7 +20,7 @@
         @csrf
         <div class="mb-3">
           <label for="nome" class="form-label">Pizza</label>
-          <input type="text" class="form-control @error('nome') is-invalid @enderror" id="name" name="nome" placeholder="Nome">
+          <input value="{{old('nome')}}" type="text" class="form-control @error('nome') is-invalid @enderror" id="nome" name="nome" placeholder="Nome">
 
           @error('nome')
             <p class="error-msg">{{$message}}</p>
@@ -29,7 +29,7 @@
         </div>
         <div class="mb-3">
           <label for="prezzo" class="form-label">Prezzo</label>
-          <input type="text" class="form-control @error('prezzo') is-invalid @enderror" id="prezzo" name="prezzo" placeholder="Prezzo">
+          <input value="{{old('prezzo')}}" type="text" class="form-control @error('prezzo') is-invalid @enderror" id="prezzo" name="prezzo" placeholder="Prezzo">
 
           @error('prezzo')
             <p class="error-msg">{{$message}}</p>

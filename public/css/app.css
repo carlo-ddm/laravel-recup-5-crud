@@ -12634,3 +12634,7 @@ fieldset:disabled .btn {
   }
 }
 
+.error-msg {
+  color: rgb(181, 6, 6);
+}
+
