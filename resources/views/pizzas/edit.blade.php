@@ -20,7 +20,7 @@
         @method('PUT')
         <div class="mb-3">
           <label for="nome" class="form-label">Pizza</label>
-          <input type="text" class="form-control @error('nome') is-invalid @enderror" id="name" name="nome" value="{{$pizza->nome}}">
+          <input type="text" class="form-control @error('nome') is-invalid @enderror" id="name" name="nome" value="{{ old('nome', $pizza->nome) }}">
 
           @error('nome')
             <p class="error-msg">{{$message}}</p>
@@ -29,7 +29,7 @@
         </div>
         <div class="mb-3">
           <label for="prezzo" class="form-label">Prezzo</label>
-          <input type="text" class="form-control @error('prezzo') is-invalid @enderror" id="prezzo" name="prezzo" value="{{$pizza->prezzo}}">
+          <input type="text" class="form-control @error('prezzo') is-invalid @enderror" id="prezzo" name="prezzo" value="{{ old('prezzo', $pizza->prezzo) }}">
 
           @error('prezzo')
             <p class="error-msg">{{$message}}</p>
